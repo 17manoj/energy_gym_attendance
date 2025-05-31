@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Energy Gym Check-In</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      justify-content: center;
+    }
+
+    .container {
+      background: #111;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .logo img {
+      width: 180px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #f43f5e;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #222;
+      color: white;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      background-color: #f43f5e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e11d48;
+    }
+
+    #message {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: #22c55e;
+    }
+
+    .offers {
+      margin-top: 2rem;
+      background: #1e293b;
+      padding: 1.5rem;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .offers h3 {
+      margin-top: 0;
+      color: #38bdf8;
+    }
+
+    .offers ul {
+      list-style: none;
+      padding-left: 0;
+      text-align: left;
+    }
+
+    .offers ul li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .offers ul li::before {
+      content: "🔥";
+      position: absolute;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="energy_gym.PNG" alt="Energy Gym Logo" />
+    </div>
+    <h1>Energy Gym Check-In</h1>
+    <p>Enter your name to mark attendance</p>
+    <input type="text" id="nameInput" placeholder="Your Full Name" />
+    <button onclick="submitAttendance()">Check In</button>
+    <div id="message"></div>
+
+    <div class="offers" id="offers">
+      <h3>Today's Food & Drink Offers</h3>
+      <ul>
+        <li>20% off on whey protein shakes</li>
+        <li>Free banana with any smoothie</li>
+        <li>Buy 1 Get 1 on energy bars</li>
+        <li>£1 off all cold-pressed juices</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function submitAttendance() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      const formUrl = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse";
+      const nameEntryId = "entry.1234567890"; // Replace with your form entry ID
+
+      const formData = new FormData();
+      formData.append(nameEntryId, name);
+
+      fetch(formUrl, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      }).then(() => {
+        document.getElementById("message").innerHTML = `✅ Hi ${name}, your attendance is marked!`;
+        document.getElementById("nameInput").value = "";
+        document.getElementById("offers").style.display = "block";
+      });
+    }
+  </script>
+
+</body>
+</html>
