@@ -136,8 +136,16 @@
         return;
       }
 
-      const formUrl = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse";
-      const nameEntryId = "entry.1234567890"; // Replace with your form entry ID
+      // Alternative way to find the entry ID for the name field:
+      // 1. Open your Google Form.
+      // 2. Click the "Send" button, then choose the link icon and copy the form link.
+      // 3. Open the form link in a new tab.
+      // 4. Right-click on the name input field and select "Inspect" (or use F12).
+      // 5. In the Elements panel, look for the <input> tag for the name field.
+      // 6. The "name" attribute will look like "entry.XXXXXXXXXX" — that's your entry ID.
+
+      const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdxXQcOTRp0SVBWD-4o19QSN-IwJvllObVUsSlA7D0tFtgqEg/formResponse";
+      const nameEntryId = "entry.94649903"; // Replace with your form entry ID
 
       const formData = new FormData();
       formData.append(nameEntryId, name);
